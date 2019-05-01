@@ -9,7 +9,7 @@ export const Movie = ({ name, image, summary, season, number }) => (
       <Card.Title>{name}</Card.Title>
       <Card.Subtitle>{`Season ${season}. Episode ${number}`}</Card.Subtitle>
       <Card.Text style={{ textOverflow: 'ellipses' }}>
-        {summary.replace(/(<([^>]+)>)/gi, '')}
+        {summary ? summary.replace(/(<([^>]+)>)/gi, '') : ''}
       </Card.Text>
       {/* <Button variant="primary">Go somewhere</Button> .substr(0, 150) */}
     </Card.Body>

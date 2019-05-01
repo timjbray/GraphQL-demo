@@ -1,30 +1,31 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 // from here: https://github.com/jdorfman/awesome-json-datasets
-const theWalkingDead = require('./the_walking_dead.json');
-const gameOfThrones = require('./game_of_thrones.json');
-const siliconValley = require('./silicon_valley.json');
+const theWalkingDead = require('./data/the_walking_dead.json');
+const gameOfThrones = require('./data/game_of_thrones.json');
+const siliconValley = require('./data/silicon_valley.json');
+const southPark = require('./data/south_park.json');
 
-const seasons = data => data[data.length - 1].season;
+const seasons = data => {
+  return { data, episodes: data.length, seasons: data[data.length - 1].season };
+};
 
 const shows = [
   {
     name: 'The Walking Dead',
-    seasons: seasons(theWalkingDead),
-    episodes: theWalkingDead.length,
-    data: theWalkingDead,
+    ...seasons(theWalkingDead),
   },
   {
     name: 'Silicon Valley',
-    seasons: seasons(siliconValley),
-    episodes: siliconValley.length,
-    data: siliconValley,
+    ...seasons(siliconValley),
   },
   {
     name: 'Game of Thrones',
-    seasons: seasons(gameOfThrones),
-    episodes: gameOfThrones.length,
-    data: gameOfThrones,
+    ...seasons(gameOfThrones),
+  },
+  {
+    name: 'South Park',
+    ...seasons(southPark),
   },
 ];
 

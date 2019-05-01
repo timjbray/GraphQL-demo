@@ -3,21 +3,9 @@ import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { Movie } from './Movie';
 
-// const MOVIE_QUERY = gql`
-//   query movies {
-//     movies {
-//       title
-//       year
-//       release_date
-//       budget
-//       gross
-//     }
-//   }
-// `;
-
-const MOVIE_QUERY = gql`
-  query episodes {
-    episodes {
+const TV_QUERY = gql`
+  query episodes($name: String) {
+    episodes(name: $name) {
       id
       name
       season
@@ -30,8 +18,8 @@ const MOVIE_QUERY = gql`
   }
 `;
 
-export const MovieList = () => (
-  <Query query={MOVIE_QUERY}>
+export const MovieList = ({ show }) => (
+  <Query query={TV_QUERY} variables={{ name: show }}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
@@ -40,7 +28,7 @@ export const MovieList = () => (
         <Movie
           key={key}
           name={name}
-          image={images.medium}
+          image={images ? images.medium : ''}
           summary={summary}
           season={season}
           number={number}
