@@ -8,11 +8,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node --experimental-modules src/server.js"
+    "start": "node --experimental-modules server.js"
   },
   "dependencies": {
     "apollo-server": "^2.4.8",
     "graphql": "^14.2.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "1.17.0"
+  }
 }

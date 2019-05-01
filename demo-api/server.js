@@ -1,32 +1,75 @@
 const { ApolloServer, gql } = require('apollo-server');
-const movies = require('./marvel.json');
+
+// from here: https://github.com/jdorfman/awesome-json-datasets
+const theWalkingDead = require('./the_walking_dead.json');
+const gameOfThrones = require('./game_of_thrones.json');
+const siliconValley = require('./silicon_valley.json');
+
+const seasons = data => data[data.length - 1].season;
+
+const shows = [
+  {
+    name: 'The Walking Dead',
+    seasons: seasons(theWalkingDead),
+    episodes: theWalkingDead.length,
+    data: theWalkingDead,
+  },
+  {
+    name: 'Silicon Valley',
+    seasons: seasons(siliconValley),
+    episodes: siliconValley.length,
+    data: siliconValley,
+  },
+  {
+    name: 'Game of Thrones',
+    seasons: seasons(gameOfThrones),
+    episodes: gameOfThrones.length,
+    data: gameOfThrones,
+  },
+];
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
 const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
-
-  # This "Book" type can be used in other type declarations.
-  type Movie {
-    title: String
-    year: String
-    release_date: String
-    budget: String
-    gross: String
+  type Show {
+    name: String
+    seasons: Int
+    episodes: Int
   }
 
-  # The "Query" type is the root of all GraphQL queries.
-  # (A "Mutation" type will be covered later on.)
+  type EpisodeImage {
+    medium: String
+    original: String
+  }
+
+  type Episode {
+    id: ID
+    name: String
+    season: Int
+    number: Int
+    airdate: String
+    summary: String
+    images: EpisodeImage
+  }
+
   type Query {
-    movies: [Movie]
+    shows: [Show]
+    episodes(name: String, season: Int): [Episode]
   }
 `;
 
 // Resolvers define the technique for fetching the types in the
-// schema.  We'll retrieve books from the "books" array above.
+// schema.
 const resolvers = {
   Query: {
-    movies: () => movies,
+    shows: () => shows,
+    episodes: (_, args) => {
+      // find show (or return default)
+      const show = args.name ? shows.find(v => v.name === args.name) : shows[0];
+
+      // filter by season?
+      return args.season ? show.data.filter(v => v.season === args.season) : show.data;
+    },
   },
 };
 
@@ -35,8 +78,7 @@ const resolvers = {
 // responsible for fetching the data for those types.
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
+// This `listen` method launches a web-server
 server.listen().then(({ url }) => {
   console.log(`🚀 GraphQL Server ready at ${url}`);
 });
