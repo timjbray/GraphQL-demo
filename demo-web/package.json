@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.3.1",
+    "apollo-link-schema": "^1.2.2",
     "bootstrap": "^4.3.1",
     "graphql": "^14.2.1",
     "react": "^16.8.6",
@@ -16,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +37,16 @@
     ]
   },
   "devDependencies": {
-    "prettier": "1.17.0"
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "graphql-tools": "^4.0.4",
+    "prettier": "1.17.0",
+    "react-test-renderer": "^16.8.6",
+    "@storybook/react": "^5.0.11",
+    "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-links": "^5.0.11",
+    "@storybook/addons": "^5.0.11",
+    "@babel/core": "^7.4.4",
+    "babel-loader": "^8.0.5"
   }
 }
