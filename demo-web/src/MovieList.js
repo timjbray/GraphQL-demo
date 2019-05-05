@@ -24,6 +24,7 @@ export const MovieList = ({ show }) => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       if (!data || !data.episodes) return <p>Empty.</p>;
+      console.log(data);
 
       return data.episodes.map(({ name, images, summary, season, number }, key) => (
         <Movie

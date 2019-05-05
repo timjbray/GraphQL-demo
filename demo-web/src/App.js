@@ -32,15 +32,9 @@ const App = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
               <NavDropdown title="TV Show" id="basic-nav-dropdown">
-                <NavDropdown.Item onSelect={() => setShow('Silicon Valley')}>
-                  Silicon Valley
-                </NavDropdown.Item>
-                <NavDropdown.Item onSelect={() => setShow('The Walking Dead')}>
-                  The Walking Dead
-                </NavDropdown.Item>
-                <NavDropdown.Item onSelect={() => setShow('Game of Thrones')}>
-                  Game of Thrones
-                </NavDropdown.Item>
+                {['Silicon Valley', 'The Walking Dead', 'Game of Thrones'].map(s => (
+                  <NavDropdown.Item onSelect={() => action(s)}>{s}</NavDropdown.Item>
+                ))}
               </NavDropdown>
             </Nav>
             <Form inline>

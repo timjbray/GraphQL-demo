@@ -1,7 +1,10 @@
-# source: http://localhost:4000/graphql
+export const schemaString = `# source: http://localhost:4000/graphql
 # timestamp: Thu May 02 2019 19:55:43 GMT+1000 (Australian Eastern Standard Time)
 
-directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
 
 enum CacheControlScope {
   PUBLIC
@@ -34,5 +37,4 @@ type Show {
   episodes: Int
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
+`;
