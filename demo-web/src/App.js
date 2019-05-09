@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import './App.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { MovieList } from './MovieList';
+import { EpisodeList } from './EpisodeList';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
@@ -33,7 +33,7 @@ const App = () => {
             <Nav className="mr-auto">
               <NavDropdown title="TV Show" id="basic-nav-dropdown">
                 {['Silicon Valley', 'The Walking Dead', 'Game of Thrones'].map(s => (
-                  <NavDropdown.Item onSelect={() => action(s)}>{s}</NavDropdown.Item>
+                  <NavDropdown.Item onSelect={() => setShow(s)}>{s}</NavDropdown.Item>
                 ))}
               </NavDropdown>
             </Nav>
@@ -44,7 +44,7 @@ const App = () => {
           </Navbar.Collapse>
         </Navbar>
         <div className="App-content">
-          <MovieList show={show} />
+          <EpisodeList show={show} />
         </div>
       </div>
     </ApolloProvider>

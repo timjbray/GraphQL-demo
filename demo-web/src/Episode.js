@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-// import image from './avengers.jpg';
 
-export const Movie = ({ name, image, summary, season, number }) => (
+export const Episode = ({ name, image, summary, season, number }) => (
   <Card style={{}}>
     <Card.Img variant="top" src={image} />
     <Card.Body>
@@ -15,5 +14,3 @@ export const Movie = ({ name, image, summary, season, number }) => (
     </Card.Body>
   </Card>
 );
-
-// export default Movie;
